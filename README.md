@@ -26,7 +26,7 @@
 
 # 📖 Project title <a name="about-project"></a>
 
-Add a brief description of your project here
+This repository contains the frontend for the TalAIt translation platform, built with Next.js and React. The platform allows authenticated users to translate product information and customer service tickets between French and English in real-time using an external AI translation service (Hugging Face Inference API). The frontend includes user registration and login features with JWT authentication, a form to submit translation requests, and a real-time display of translated text. The app is fully dockerized for simple deployment.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -41,10 +41,15 @@ Add a brief description of your project here
 
 ### Key Features <a name="key-features"></a>
 
-- **Feature one**
-- **Feature two**
-- **Feature three**
-- **Feature four**
+- **User authentication with JWT**
+
+- **Translation form with real-time display of results**
+
+- **Choice of translation direction (FR → EN or EN → FR)**
+
+- **Secure access to translation features via JWT**
+
+Fully dockerized for deployment
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
