@@ -1,77 +1,121 @@
-import GoogleIcon from "../components/ui/GoogleIcon";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import React, { FormEvent, useState } from "react";
+import LeftSidebar from "../components/LeftSidebar";
+import LoginForm from "../components/LoginForm";
+import RegisterForm from "../components/RegisterForm";
+
+type Data = {
+	username: string;
+	email: string;
+	password: string;
+};
+
+const page = () => {
+	const [isLoginOpen, setIsLoginOpen] = useState<boolean>(true);
+	const [username, setUsername] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+
+	const toggleLogin = () => {
+		setIsLoginOpen((val) => !val);
+		setUsername("");
+		setEmail("");
+		setPassword("");
+	};
+
+	const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setUsername(e.target.value);
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setEmail(e.target.value);
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setPassword(e.target.value);
+
+	const handleSubmit = (e: FormEvent) => {
+		e.preventDefault();
+		const data: Partial<Data> = { username, password };
+
+		if (!isLoginOpen) {
+			data.email = email;
+			console.log("--- Register Form Submitted ---");
+			console.log("Data:", data);
+		} else {
+			console.log("--- Login Form Submitted ---");
+			console.log("Data:", data);
+		}
+	};
+
 	return (
-		<div className="bg-red-300 flex justify-center items-center h-screen">
-			<div className="bg-white w-9/12 rounded-4xl flex p-6">
-				<div className="flex flex-col bg-gray-700 w-1/2 px-5 py-4 rounded-4xl">
-					<div className="flex flex-col">
-						<div className="flex justify-between items-center">
-							<p className="font-bold text-white text-2xl">Select Works</p>
-							<div className="flex gap-2">
-								<button className="font-light px-3 py-2 text-white border-2 border-transparent rounded-2xl hover:cursor-pointer hover:border-white hover:bg-gray-200 active:bg-gray-800 transition-all duration-200">
-									Sign Up
-								</button>
-								<button className="font-light px-3 py-2 text-white rounded-2xl hover:cursor-pointer hover:bg-gray-800 active:bg-gray-800 transition-all duration-200">
-									Sign Up
-								</button>
-							</div>
-						</div>
+		<div className="h-screen flex justify-center items-center p-4">
+			<div className="bg-white w-full max-w-6xl lg:flex shadow-2xl rounded-2xl md:rounded-3xl overflow-hidden">
+				{/* Left Side: Info/Hero Section */}
+				<LeftSidebar toggleLogin={toggleLogin} isLoginOpen={isLoginOpen} />
+
+				{/* Right Side: Form Section */}
+				<div className="flex flex-col lg:w-1/2 p-6 md:p-10">
+					<div className="flex justify-between items-center mb-10">
+						<p className="font-extrabold text-2xl md:text-3xl text-gray-800">
+							{isLoginOpen ? "Sign In" : "Register"}
+						</p>
+						<select
+							name="language"
+							id="language"
+							defaultValue="EN"
+							className="border font-medium cursor-pointer rounded-xl px-3 py-2 border-gray-300 focus:ring-red-500 focus:border-red-500 transition-colors"
+						>
+							<option value="EN">EN</option>
+							<option value="FR">FR</option>
+						</select>
 					</div>
-				</div>
-				<div className="flex flex-col  w-1/2 px-5 py-4 rounded-4xl">
-					<div>
-						<div className="flex justify-between">
-							<p className="font-extrabold text-3xl text-gray-700">
-								Select Works
-							</p>
-							<select
-								name="En"
-								id="language"
-								className="border-none active:border-none font-medium px-2 py-1 cursor-pointer"
-							>
-								<option value="EN">EN</option>
-								<option value="FR">FR</option>
-							</select>
-						</div>
-						<div>
-							<h2>Hi Designer</h2>
-							<p>Welcom to UISCOCIAL</p>
 
-							<div className="flex flex-col gap-4">
-								<input
-									type="text"
-									className="px-4 py-3 text-lg border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-300 transition-all duration-200 placeholder-gray-400"
-									placeholder="Email"
-								/>
+					<div className="mb-6">
+						<h2 className="text-xl md:text-2xl font-bold text-gray-700">
+							{isLoginOpen ? "Hi Designer" : "Welcome to UISOCIAL!"}
+						</h2>
+						<p className="text-gray-500 mt-1">
+							{isLoginOpen
+								? "Welcome back! Please enter your credentials."
+								: "Create your account and start sharing your work."}
+						</p>
+					</div>
 
-								<input
-									type="text"
-									className="px-4 py-3 text-lg border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-300 transition-all duration-200 placeholder-gray-400"
-									placeholder="Password"
-								/>
-							</div>
-							<div className="flex justify-end py-4 pr-1">
-								<button className="text-red-500 font-semibold hover:cursor-pointer hover:text-red-600">
-									Forget password?
-								</button>
-							</div>
-							<div className="text-center">
-								<p>--------OR--------</p>
-							</div>
-							<div className="flex flex-col gap-4">
-								<button className="flex justify-center items-center gap-2 border-2 border-gray-300 px-4 py-3 text-lg rounded-xl w-full font-medium cursor-pointer hover:bg-gray-100 ">
-									Login with Google
-									<GoogleIcon />
-								</button>
-								<button className="flex justify-center items-center gap-2 border-2 border-gray-300 px-4 py-3 text-lg rounded-full w-full font-medium cursor-pointer hover:bg-red-700 bg-red-500 text-white">
-									Login
-								</button>
-							</div>
-						</div>
+					{isLoginOpen ? (
+						<LoginForm
+							username={username}
+							password={password}
+							handleUsernameChange={handleUsernameChange}
+							handlePasswordChange={handlePasswordChange}
+							handleSubmit={handleSubmit}
+						/>
+					) : (
+						<RegisterForm
+							username={username}
+							email={email}
+							password={password}
+							handleUsernameChange={handleUsernameChange}
+							handleEmailChange={handleEmailChange}
+							handlePasswordChange={handlePasswordChange}
+							handleSubmit={handleSubmit}
+						/>
+					)}
+					<div className="mt-auto pt-10 text-center text-sm text-gray-500">
+						<p>
+							By continuing, you agree to UISOCIAL&apos;s{" "}
+							<Link href="#" className="text-red-500 hover:underline">
+								Terms of Service
+							</Link>{" "}
+							and{" "}
+							<Link href="#" className="text-red-500 hover:underline">
+								Privacy Policy
+							</Link>
+							.
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
-}
+};
+
+export default page;
