@@ -44,6 +44,22 @@ export const TranslatorCard: React.FC = () => {
 		console.log(`Target Language: ${targetLang}`);
 		console.log(`Input Text: "${input}"`);
 		console.log("---------------------------");
+		const data = {
+			text: input,
+			language: `${sourceLang}-${targetLang}`,
+		};
+
+		console.log("Data to be sent to API:", data);
+		const res = await fetch("/api/predict", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+			credentials: "include",
+		});
+
+		console.log(res);
 
 		// --- Simulate API Response (Local Data) ---
 		const simulatedResponse: TranslationResult = {
