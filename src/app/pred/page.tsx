@@ -1,20 +1,26 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Navbar } from "@/src/components/Navbar";
 import { TranslatorCard } from "@/src/components/TranslatorCard";
 
-interface TranslationPageProps {
-	onBack: () => void;
-}
+export default function TranslationPage() {
+	const router = useRouter();
 
-export default function TranslationPage({ onBack }: TranslationPageProps) {
+	const handleBackToHome = () => {
+		router.push("/");
+	};
+
 	return (
 		<div className="min-h-screen bg-kid-blue/5">
 			<Navbar onStart={() => {}} hideCta />
 
 			<main className="container mx-auto px-4 pt-28 pb-20">
-				<button className="group flex items-center gap-2 text-gray-500 font-bold mb-8 hover:text-kid-blue transition-colors pl-4">
+				<button
+					onClick={handleBackToHome}
+					className="group flex items-center gap-2 text-gray-500 font-bold mb-8 hover:text-kid-blue transition-colors pl-4"
+				>
 					<div className="bg-white p-2 rounded-full shadow-sm group-hover:scale-110 transition-transform">
 						<ArrowLeft size={20} />
 					</div>
