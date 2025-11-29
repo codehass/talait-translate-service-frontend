@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Script from "next/script";
 import { Nunito, Fredoka } from "next/font/google";
-import "./globals.css";
+import "./styles/globals.css";
 
 const nunito = Nunito({
 	subsets: ["latin"],
