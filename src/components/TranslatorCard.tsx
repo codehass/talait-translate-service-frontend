@@ -54,19 +54,15 @@ export const TranslatorCard: React.FC = () => {
 		});
 
 		const dataResponse = await res.json();
-		console.log("API Response:", dataResponse);
-
-		// --- Simulate API Response (Local Data) ---
 		const simulatedResponse: TranslationResult = {
-			original: dataResponse?.original_text, // Use original_text from backend
-			translation: dataResponse?.translated_text, // Use translated_text from backend
-			emoji: dataResponse?.source_language === "en" ? "🇬🇧" : "🇫🇷", // Emoji logic
+			original: dataResponse?.original_text,
+			translation: dataResponse?.translated_text,
+			emoji: dataResponse?.source_language === "en" ? "🇫🇷" : "🇬🇧",
 			funFact:
 				dataResponse?.source_language === "en"
 					? "French is spoken in 29 countries!"
 					: "English is the most widely spoken language worldwide!",
-			pronunciation:
-				dataResponse?.source_language === "en" ? "bohn-zhoor" : "hello", // Pronunciation logic
+			pronunciation: dataResponse?.source_language,
 		};
 
 		setTimeout(() => {
@@ -170,7 +166,7 @@ export const TranslatorCard: React.FC = () => {
 								<div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4 text-center md:text-left">
 									<div className="flex-1">
 										<span className="text-lg font-black text-[#F87171] uppercase tracking-widest mb-2 block animate-pulse">
-											Ta-da! Your new word!
+											Your new word!
 										</span>
 										<h3 className="text-7xl md:text-8xl font-display font-bold text-gray-800 wrap-break-word leading-tight">
 											{result.translation}{" "}
@@ -178,9 +174,6 @@ export const TranslatorCard: React.FC = () => {
 												{result.emoji}
 											</span>
 										</h3>
-										<p className="text-gray-600 font-sans mt-2 text-2xl font-medium">
-											/{result.pronunciation}/
-										</p>
 									</div>
 
 									<div className="flex items-center gap-4">
@@ -212,7 +205,7 @@ export const TranslatorCard: React.FC = () => {
 
 								<div className="bg-white rounded-[2rem] p-6 border-4 border-[#34D399]/30 shadow-lg">
 									<div className="flex items-center gap-2 mb-2">
-										<span className="bg-kid-purple text-white text-sm font-black px-4 py-1.5 rounded-full tracking-wider uppercase shadow-md">
+										<span className="bg-kid-purple text-black text-sm font-black px-4 py-1.5 rounded-full tracking-wider uppercase shadow-md">
 											FUN FACT
 										</span>
 										<Sparkles className="text-kid-purple w-5 h-5" />

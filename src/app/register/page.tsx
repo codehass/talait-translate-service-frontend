@@ -5,19 +5,27 @@ import { Footer } from "@/src/components/Footer";
 import { Input } from "@/src/components/Input";
 import { Navbar } from "@/src/components/Navbar";
 import { ArrowLeft } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/src/hooks/useAuth";
 
 export default function AuthForms() {
 	const [view, setView] = useState<"login" | "register">("login");
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
+	const { isAuthenticated } = useAuth();
 
 	const [formData, setFormData] = useState({
 		username: "",
 		email: "",
 		password: "",
 	});
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			router.push("/translate");
+		}
+	}, [isAuthenticated, router]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -39,9 +47,6 @@ export default function AuthForms() {
 			view === "login"
 				? { username: formData.username, password: formData.password }
 				: formData;
-
-		console.log("Form Data:", dataToLog);
-		console.log("----------------------------------------");
 
 		let res;
 
@@ -76,8 +81,11 @@ export default function AuthForms() {
 				console.error("Error response:", result.detail);
 				return;
 			}
-
-			console.log("Response:", result);
+			if (view === "login") {
+				router.push("/translate");
+			} else {
+				setView("login");
+			}
 		} catch (error) {
 			console.error("Network error:", error);
 		} finally {

@@ -6,19 +6,13 @@ import { FeatureSection } from "./FeatureSection";
 import { HowItWorks } from "./HowItWorks";
 import { Navbar } from "./Navbar";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const LandingPage = () => {
 	const router = useRouter();
-	const searchParams = useSearchParams();
-	const from = searchParams.get("from");
 
 	const handleRedirection = () => {
-		if (from) {
-			router.push(from);
-		} else {
-			router.push("/register");
-		}
+		router.push("/translate");
 	};
 	return (
 		<div className="bg-[#FFFBEB]">
