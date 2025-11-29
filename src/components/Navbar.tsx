@@ -16,8 +16,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onStart, hideCta = false }) => {
 						className="flex items-center gap-3 cursor-pointer"
 						onClick={onStart}
 					>
-						<div className="bg-linear-to-br from-kid-blue to-blue-400 p-2.5 rounded-full text-white shadow-md transform hover:rotate-12 transition-transform">
-							<Globe size={24} />
+						<div className="bg-linear-to-br p-2.5 rounded-full shadow-md transform hover:rotate-12 transition-transform bg-blue-500">
+							<Globe size={24} className="text-white" />
 						</div>
 						<span className="text-2xl font-display font-bold text-gray-800 tracking-tight">
 							KidLingo
