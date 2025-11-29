@@ -161,11 +161,11 @@ export default function AuthForms() {
 						<form onSubmit={handleSubmit} className="relative z-10 space-y-4">
 							{view === "register" && (
 								<Input
-									label="Super Hero username"
-									placeholder="Captain Cool"
-									type="text"
-									name="username"
-									value={formData.username}
+									label="Email Address"
+									placeholder="Email"
+									type="email"
+									name="email"
+									value={formData.email}
 									onChange={handleInputChange}
 									required
 									icon={
@@ -175,13 +175,12 @@ export default function AuthForms() {
 									}
 								/>
 							)}
-
 							<Input
-								label="Email Address"
-								placeholder="Email"
-								type="email"
-								name="email"
-								value={formData.email}
+								label="Super Hero username"
+								placeholder="Captain Cool"
+								type="text"
+								name="username"
+								value={formData.username}
 								onChange={handleInputChange}
 								required
 								icon={

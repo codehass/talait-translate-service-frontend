@@ -2,38 +2,37 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// This function checks for a valid authentication state
+// This function checks if the user is authenticated by looking for a session-token cookie
 function isAuthenticated(request: NextRequest) {
-	// 💡 This is the part you'll update with your real auth logic.
 	const sessionToken = request.cookies.get("session-token")?.value;
 
-	// For demonstration, checks if a session-token cookie exists.
+	// Return true if a session-token exists (authenticated user)
 	return !!sessionToken;
 }
 
-// 1. The main middleware function MUST be exported.
+// Main middleware function that checks authentication and protects the /translate route
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
-	// Define the protected path
+	// If the requested path is /translate (protected)
 	if (pathname === "/translate") {
-		// Check if the user is authenticated
+		// Check if the user is authenticated by the presence of the session token
 		if (!isAuthenticated(request)) {
-			const url = new URL("/register", request.url);
+			// If not authenticated, redirect the user to the login page (or register if they need to create an account)
+			const url = new URL("/register", request.url); // or `/register` based on your flow
 
-			// Redirect the user to the login page
+			// Optionally, include a query parameter to send the user back to the protected route after successful login
 			url.searchParams.set("from", pathname);
 
 			return NextResponse.redirect(url);
 		}
 	}
 
-	// Allow the request to continue if the path is not protected or the user is authenticated
+	// Allow the request to continue if the user is authenticated or the path is not protected
 	return NextResponse.next();
 }
 
-// 2. The config object MUST be exported (if used to define the matcher).
+// Export the config object to specify the matcher (to only apply middleware to /translate path)
 export const config = {
-	// Only run middleware on the /translate path
 	matcher: ["/translate"],
 };
