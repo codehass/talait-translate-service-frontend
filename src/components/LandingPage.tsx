@@ -1,20 +1,18 @@
+"use client";
+
 import React from "react";
 import { Button } from "./Button";
 import { FeatureSection } from "./FeatureSection";
 import { HowItWorks } from "./HowItWorks";
 import { Navbar } from "./Navbar";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-interface LandingPageProps {
-	onStart: () => void;
-}
-
-export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
+export const LandingPage = () => {
+	const router = useRouter();
 	return (
 		<div className="bg-kid-cream">
-			<Navbar onStart={onStart} />
-
-			{/* Hero Section */}
+			<Navbar />
 			<section className="relative pt-32 pb-20 px-4 overflow-hidden">
 				<div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
 					{/* Text Content */}
@@ -52,7 +50,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
 						<div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
 							<Button
-								onClick={onStart}
+								onClick={() => router.push("translate")}
 								size="lg"
 								className="text-2xl px-10 py-5 shadow-xl hover:shadow-2xl hover:-translate-y-1 bg-kid-yellow text-amber-900 border-b-8 border-amber-500 active:border-b-0 active:translate-y-2"
 							>
@@ -127,7 +125,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 						Ready to try it yourself?
 					</h2>
 					<Button
-						onClick={onStart}
+						onClick={() => router.push("/translate")}
 						size="lg"
 						variant="accent"
 						className="text-2xl px-12 py-6 shadow-xl hover:shadow-2xl hover:scale-105 border-b-8 border-amber-600 active:border-b-0 active:translate-y-2"

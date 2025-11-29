@@ -1,33 +1,13 @@
-"use client";
-
-import React, { useState } from "react";
 import { Footer } from "../components/Footer";
 import { LandingPage } from "../components/LandingPage";
-import TranslationPage from "./pred/page";
 
 export type PageView = "landing" | "translator";
 
 const App: React.FC = () => {
-	const [currentView, setCurrentView] = useState<PageView>("landing");
-
-	const navigateToTranslator = () => {
-		setCurrentView("translator");
-		window.scrollTo({ top: 0, behavior: "smooth" });
-	};
-
-	const navigateToHome = () => {
-		setCurrentView("landing");
-		window.scrollTo({ top: 0, behavior: "smooth" });
-	};
-
 	return (
 		<div className="min-h-screen font-sans overflow-x-hidden selection:bg-kid-yellow selection:text-amber-900 bg-kid-cream flex flex-col">
-			<div className="flex-grow">
-				{currentView === "landing" ? (
-					<LandingPage onStart={navigateToTranslator} />
-				) : (
-					<TranslationPage onBack={navigateToHome} />
-				)}
+			<div className="grow">
+				<LandingPage />
 			</div>
 			<Footer />
 		</div>

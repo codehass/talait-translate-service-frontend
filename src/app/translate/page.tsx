@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Navbar } from "@/src/components/Navbar";
 import { TranslatorCard } from "@/src/components/TranslatorCard";
+import { Footer } from "@/src/components/Footer";
 
 export default function TranslationPage() {
 	const router = useRouter();
@@ -14,7 +15,7 @@ export default function TranslationPage() {
 
 	return (
 		<div className="min-h-screen bg-kid-blue/5">
-			<Navbar onStart={() => {}} hideCta />
+			<Navbar />
 
 			<main className="container mx-auto px-4 pt-28 pb-20">
 				<button
@@ -43,6 +44,7 @@ export default function TranslationPage() {
 				{/* Decor */}
 				<div className="fixed bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent -z-10 pointer-events-none" />
 			</main>
+			<Footer />
 		</div>
 	);
 }
