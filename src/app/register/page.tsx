@@ -14,7 +14,7 @@ export default function AuthForms() {
 	const router = useRouter();
 
 	const [formData, setFormData] = useState({
-		name: "",
+		username: "",
 		email: "",
 		password: "",
 	});
@@ -31,17 +31,55 @@ export default function AuthForms() {
 		setView(newView);
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setIsLoading(true);
 
 		const dataToLog =
 			view === "login"
-				? { email: formData.email, password: formData.password }
+				? { username: formData.username, password: formData.password }
 				: formData;
 
 		console.log("Form Data:", dataToLog);
 		console.log("----------------------------------------");
+
+		let res;
+
+		if (view === "login") {
+			// Handle login (send form data with x-www-form-urlencoded)
+			const formData = new URLSearchParams();
+			formData.append("username", dataToLog.username);
+			formData.append("password", dataToLog.password);
+
+			res = await fetch("/api/auth/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded",
+				},
+				body: formData.toString(), // Convert FormData to string for x-www-form-urlencoded
+				credentials: "include", // Include cookies for auth token
+			});
+		} else {
+			// Handle registration (send JSON data)
+			res = await fetch("/api/auth/register", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(dataToLog),
+				credentials: "include", // Include cookies for auth token
+			});
+		}
+
+		const result = await res.json();
+
+		// Handle the response
+		if (!res.ok) {
+			console.error("Error response:", result.detail);
+			return;
+		}
+
+		console.log("Response:", result);
 
 		setTimeout(() => {
 			setIsLoading(false);
@@ -123,11 +161,11 @@ export default function AuthForms() {
 						<form onSubmit={handleSubmit} className="relative z-10 space-y-4">
 							{view === "register" && (
 								<Input
-									label="Super Hero Name"
+									label="Super Hero username"
 									placeholder="Captain Cool"
 									type="text"
-									name="name"
-									value={formData.name}
+									name="username"
+									value={formData.username}
 									onChange={handleInputChange}
 									required
 									icon={
@@ -140,7 +178,7 @@ export default function AuthForms() {
 
 							<Input
 								label="Email Address"
-								placeholder="kid@example.com"
+								placeholder="Email"
 								type="email"
 								name="email"
 								value={formData.email}
