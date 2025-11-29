@@ -43,6 +43,19 @@ export default function AuthForms() {
 		}, 1500);
 	};
 
+	const primaryColor = view === "login" ? "kid-blue" : "kid-yellow";
+	const buttonColor = view === "login" ? "kid-blue" : "kid-yellow";
+	const secondaryColor = view === "login" ? "kid-yellow" : "kid-blue";
+
+	let buttonText = "";
+	if (isLoading) {
+		buttonText = "Loading Magic...";
+	} else if (view === "login") {
+		buttonText = "Let's Go!";
+	} else {
+		buttonText = "Create Account";
+	}
+
 	return (
 		<div className="w-full max-w-md mx-auto">
 			<div className="flex mb-6 bg-white p-1 rounded-2xl shadow-sm border border-gray-100">
@@ -50,8 +63,8 @@ export default function AuthForms() {
 					onClick={() => handleTabSwitch("login")}
 					className={`flex-1 py-2 font-bold rounded-xl transition-all ${
 						view === "login"
-							? "bg-brand-blue text-white shadow-md"
-							: "text-gray-400 hover:text-brand-dark"
+							? `bg-${buttonColor} text-white shadow-md`
+							: "text-gray-400 hover:text-gray-700"
 					}`}
 				>
 					Login
@@ -60,17 +73,27 @@ export default function AuthForms() {
 					onClick={() => handleTabSwitch("register")}
 					className={`flex-1 py-2 font-bold rounded-xl transition-all ${
 						view === "register"
-							? "bg-brand-yellow text-brand-dark shadow-md"
-							: "text-gray-400 hover:text-brand-dark"
+							? `bg-${buttonColor} text-gray-800 shadow-md`
+							: "text-gray-400 hover:text-gray-700"
 					}`}
 				>
 					Sign Up
 				</button>
 			</div>
 
-			{/* Card... (unchanged) */}
-			<div className="bg-white p-8 rounded-[2rem] shadow-xl border-b-4 border-gray-100 relative overflow-hidden">
-				<h2 className="text-3xl font-extrabold text-center mb-2 text-brand-dark relative z-10">
+			<div
+				className={`bg-white p-8 rounded-[2rem] shadow-xl border-b-4 border-${primaryColor}/70 relative overflow-hidden`}
+			>
+				<div
+					className={`absolute -top-10 -right-10 w-32 h-32 bg-${secondaryColor}/30 rounded-full opacity-50 pointer-events-none`}
+				></div>
+				<div
+					className={`absolute -bottom-10 -left-10 w-24 h-24 bg-${primaryColor}/30 rounded-full opacity-50 pointer-events-none`}
+				></div>
+
+				<h2
+					className={`text-3xl text-${buttonColor} font-extrabold text-center mb-2 relative z-10`}
+				>
 					{view === "login" ? "Welcome Back!" : "Join the Adventure!"}
 				</h2>
 				<p className="text-center text-gray-500 mb-8 font-medium relative z-10">
@@ -130,21 +153,17 @@ export default function AuthForms() {
 					<div className="pt-4">
 						<Button
 							type="submit"
-							variant={view === "register" ? "primary" : "accent"}
+							className={`bg-${buttonColor} hover:bg-${buttonColor}/80 text-white w-full`}
 							disabled={isLoading}
 						>
-							{isLoading
-								? "Loading Magic..."
-								: view === "login"
-								? "Let's Go!"
-								: "Create Account"}
+							{buttonText}
 						</Button>
 					</div>
 
 					<div className="text-center mt-6">
 						<button
 							type="button"
-							className="text-gray-400 font-bold text-sm hover:text-brand-blue transition-colors"
+							className="text-gray-400 font-bold text-sm hover:text-kid-green transition-colors"
 						>
 							← Back to Home
 						</button>
