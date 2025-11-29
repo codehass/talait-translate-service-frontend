@@ -7,7 +7,7 @@ const features = [
 		title: "Say It Out Loud",
 		description:
 			"Listen to how words sound. Practice saying them until you sound like a local!",
-		color: "bg-kid-red",
+		color: "bg-[#F87171]",
 		shadow: "shadow-red-200",
 		rotate: "-rotate-2",
 	},
@@ -16,7 +16,7 @@ const features = [
 		title: "Learn New Words",
 		description:
 			"Build your vocabulary with fun examples and cool emojis for every word.",
-		color: "bg-kid-blue",
+		color: "bg-[#60A5FA]",
 		shadow: "shadow-blue-200",
 		rotate: "rotate-2",
 	},
@@ -25,7 +25,7 @@ const features = [
 		title: "Have Fun!",
 		description:
 			"Learning is a game! Discover fun facts about French and English culture.",
-		color: "bg-kid-green",
+		color: "bg-[#34D399]",
 		shadow: "shadow-emerald-200",
 		rotate: "-rotate-1",
 	},
@@ -38,7 +38,7 @@ export const FeatureSection: React.FC = () => {
 				<div className="text-center max-w-2xl mx-auto mb-16">
 					<h2 className="text-4xl md:text-5xl font-display font-bold text-blue-900 mb-6">
 						Learning is a{" "}
-						<span className="text-kid-red underline decoration-wavy decoration-kid-yellow underline-offset-4">
+						<span className="text-[#F87171] underline decoration-wavy decoration-[#FBBF24] underline-offset-4">
 							Super Power!
 						</span>
 					</h2>

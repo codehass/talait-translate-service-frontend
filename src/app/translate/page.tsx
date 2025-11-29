@@ -14,13 +14,13 @@ export default function TranslationPage() {
 	};
 
 	return (
-		<div className="min-h-screen bg-kid-blue/5">
+		<div className="min-h-screen bg-[#60A5FA]/5">
 			<Navbar />
 
 			<main className="container mx-auto px-4 pt-28 pb-20">
 				<button
 					onClick={handleBackToHome}
-					className="group flex items-center gap-2 text-gray-500 font-bold mb-8 hover:text-kid-blue transition-colors pl-4"
+					className="group flex items-center gap-2 text-gray-500 font-bold mb-8 hover:text-[#60A5FA] transition-colors pl-4"
 				>
 					<div className="bg-white p-2 rounded-full shadow-sm group-hover:scale-110 transition-transform">
 						<ArrowLeft size={20} />

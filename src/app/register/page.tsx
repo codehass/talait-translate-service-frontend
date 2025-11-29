@@ -45,50 +45,49 @@ export default function AuthForms() {
 
 		let res;
 
-		if (view === "login") {
-			// Handle login (send form data with x-www-form-urlencoded)
-			const formData = new URLSearchParams();
-			formData.append("username", dataToLog.username);
-			formData.append("password", dataToLog.password);
+		try {
+			if (view === "login") {
+				const loginFormData = new URLSearchParams();
+				loginFormData.append("username", dataToLog.username);
+				loginFormData.append("password", dataToLog.password);
 
-			res = await fetch("/api/auth/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded",
-				},
-				body: formData.toString(), // Convert FormData to string for x-www-form-urlencoded
-				credentials: "include", // Include cookies for auth token
-			});
-		} else {
-			// Handle registration (send JSON data)
-			res = await fetch("/api/auth/register", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(dataToLog),
-				credentials: "include", // Include cookies for auth token
-			});
-		}
+				res = await fetch("/api/auth/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+					body: loginFormData.toString(),
+					credentials: "include",
+				});
+			} else {
+				res = await fetch("/api/auth/register", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(dataToLog),
+					credentials: "include",
+				});
+			}
 
-		const result = await res.json();
+			const result = await res.json();
 
-		// Handle the response
-		if (!res.ok) {
-			console.error("Error response:", result.detail);
-			return;
-		}
+			if (!res.ok) {
+				console.error("Error response:", result.detail);
+				return;
+			}
 
-		console.log("Response:", result);
-
-		setTimeout(() => {
+			console.log("Response:", result);
+		} catch (error) {
+			console.error("Network error:", error);
+		} finally {
 			setIsLoading(false);
-		}, 1500);
+		}
 	};
 
-	const primaryColor = view === "login" ? "kid-blue" : "kid-yellow";
-	const buttonColor = view === "login" ? "kid-blue" : "kid-yellow";
-	const secondaryColor = view === "login" ? "kid-yellow" : "kid-blue";
+	const primaryColor = view === "login" ? "[#60A5FA]" : "[#FBBF24]";
+	const buttonColor = view === "login" ? "[#60A5FA]" : "[#FBBF24]";
+	const secondaryColor = view === "login" ? "[#FBBF24]" : "[#60A5FA]";
 
 	let buttonText = "";
 	if (isLoading) {
@@ -100,13 +99,13 @@ export default function AuthForms() {
 	}
 
 	return (
-		<div className="min-h-screen bg-kid-blue/5 flex flex-col justify-around">
+		<div className="min-h-screen bg-[#60A5FA]/5 flex flex-col justify-around">
 			<Navbar />
 
 			<main className="container mx-auto px-4 pt-28 pb-20">
 				<button
 					onClick={() => router.push("/")}
-					className="group flex items-center gap-2 text-gray-500 font-bold mb-8 hover:text-kid-blue transition-colors pl-4"
+					className="group flex items-center gap-2 text-gray-500 font-bold mb-8 hover:text-[#60A5FA] transition-colors pl-4"
 				>
 					<div className="bg-white p-2 rounded-full shadow-sm group-hover:scale-110 transition-transform">
 						<ArrowLeft size={20} />
@@ -218,7 +217,7 @@ export default function AuthForms() {
 							<div className="text-center mt-6">
 								<button
 									type="button"
-									className="text-gray-400 font-bold text-sm hover:text-kid-green transition-colors"
+									className="text-gray-400 font-bold text-sm hover:text-[#34D399] transition-colors"
 									onClick={() => router.push("/")}
 								>
 									← Back to Home

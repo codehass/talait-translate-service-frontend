@@ -16,10 +16,10 @@ export const Button: React.FC<ButtonProps> = ({
 		"font-display font-bold rounded-full transition-all duration-200 transform active:scale-95 flex items-center justify-center gap-2 shadow-[0_4px_0_rgba(0,0,0,0.1)] active:shadow-none active:translate-y-[4px]";
 
 	const variants = {
-		primary: "bg-kid-blue hover:bg-blue-400 text-white",
+		primary: "bg-[#60A5FA] hover:bg-blue-400 text-white",
 		secondary:
-			"bg-white hover:bg-gray-50 text-kid-blue border-2 border-kid-blue",
-		accent: "bg-kid-yellow hover:bg-amber-400 text-amber-900",
+			"bg-white hover:bg-gray-50 text-[#60A5FA] border-2 border-[#60A5FA]",
+		accent: "bg-[#FBBF24] hover:bg-amber-400 text-amber-900",
 	};
 
 	const sizes = {

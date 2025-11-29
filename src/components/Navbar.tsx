@@ -21,7 +21,7 @@ export const Navbar = () => {
 					<Button
 						onClick={() => router.push("/register")}
 						size="sm"
-						className="bg-kid-green hover:bg-emerald-400 text-white border-b-4 border-emerald-600 active:border-b-0 active:translate-y-1"
+						className="hover:bg-emerald-400 text-white border-b-4 border-emerald-600 active:border-b-0 active:translate-y-1 bg-emerald-500 "
 					>
 						Login
 					</Button>

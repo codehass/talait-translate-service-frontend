@@ -6,28 +6,28 @@ const steps = [
 		icon: <Keyboard className="w-10 h-10 text-white" />,
 		title: "Type a Word",
 		desc: "Write any word you want to know.",
-		color: "bg-kid-blue",
+		color: "bg-[#60A5FA]",
 		number: "1",
 	},
 	{
 		icon: <ArrowRightLeft className="w-10 h-10 text-white" />,
 		title: "Magic Swap",
 		desc: "We change it to French or English.",
-		color: "bg-kid-red",
+		color: "bg-[#F87171]",
 		number: "2",
 	},
 	{
 		icon: <Ear className="w-10 h-10 text-white" />,
 		title: "Listen & Learn",
 		desc: "Hear how it sounds and say it!",
-		color: "bg-kid-yellow",
+		color: "bg-[#FBBF24]",
 		number: "3",
 	},
 ];
 
 export const HowItWorks: React.FC = () => {
 	return (
-		<section className="py-20 relative bg-kid-cream">
+		<section className="py-20 relative bg-[#FFFBEB]">
 			<div className="container mx-auto px-4">
 				<div className="text-center mb-16">
 					<span className="inline-block py-2 px-4 rounded-full bg-orange-100 text-orange-600 font-bold text-sm mb-4 tracking-wider uppercase">
