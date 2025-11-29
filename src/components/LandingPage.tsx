@@ -6,10 +6,20 @@ import { FeatureSection } from "./FeatureSection";
 import { HowItWorks } from "./HowItWorks";
 import { Navbar } from "./Navbar";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const LandingPage = () => {
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const from = searchParams.get("from");
+
+	const handleRedirection = () => {
+		if (from) {
+			router.push(from);
+		} else {
+			router.push("/register");
+		}
+	};
 	return (
 		<div className="bg-kid-cream">
 			<Navbar />
@@ -50,7 +60,7 @@ export const LandingPage = () => {
 
 						<div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
 							<Button
-								onClick={() => router.push("translate")}
+								onClick={handleRedirection}
 								size="lg"
 								className="text-2xl px-10 py-5 shadow-xl hover:shadow-2xl hover:-translate-y-1 bg-kid-yellow text-amber-900 border-b-8 border-amber-500 active:border-b-0 active:translate-y-2"
 							>
@@ -125,7 +135,7 @@ export const LandingPage = () => {
 						Ready to try it yourself?
 					</h2>
 					<Button
-						onClick={() => router.push("/translate")}
+						onClick={handleRedirection}
 						size="lg"
 						variant="accent"
 						className="text-2xl px-12 py-6 shadow-xl hover:shadow-2xl hover:scale-105 border-b-8 border-amber-600 active:border-b-0 active:translate-y-2"

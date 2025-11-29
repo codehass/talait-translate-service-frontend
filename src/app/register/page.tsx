@@ -219,6 +219,7 @@ export default function AuthForms() {
 								<button
 									type="button"
 									className="text-gray-400 font-bold text-sm hover:text-kid-green transition-colors"
+									onClick={() => router.push("/")}
 								>
 									← Back to Home
 								</button>
