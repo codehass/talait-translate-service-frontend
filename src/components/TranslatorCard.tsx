@@ -59,26 +59,30 @@ export const TranslatorCard: React.FC = () => {
 			credentials: "include",
 		});
 
-		console.log(res);
+		const dataResponse = await res.json();
+		console.log("API Response:", dataResponse);
 
 		// --- Simulate API Response (Local Data) ---
 		const simulatedResponse: TranslationResult = {
-			original: input,
-			translation: sourceLang === Language.ENGLISH ? "Bonjour" : "Hello",
-			emoji: sourceLang === Language.ENGLISH ? "👋" : "👋",
+			original: dataResponse?.original_text, // Use original_text from backend
+			translation: dataResponse?.translated_text, // Use translated_text from backend
+			emoji: dataResponse?.source_language === "en" ? "🇬🇧" : "🇫🇷", // Emoji logic
 			funFact:
-				sourceLang === Language.ENGLISH
+				dataResponse?.source_language === "en"
 					? "French is spoken in 29 countries!"
 					: "English is the most widely spoken language worldwide!",
-			pronunciation: sourceLang === Language.ENGLISH ? "bohn-zhoor" : "hello",
+			pronunciation:
+				dataResponse?.source_language === "en" ? "bohn-zhoor" : "hello", // Pronunciation logic
 		};
 		// ------------------------------------------
+
+		console.log("Simulated Response:", simulatedResponse);
 
 		// Simulate Network Latency
 		setTimeout(() => {
 			setResult(simulatedResponse);
 			setLoading(false);
-		}, 1000); // 1 second delay for demonstration
+		}, 1000);
 	};
 
 	const toggleLanguage = () => {
