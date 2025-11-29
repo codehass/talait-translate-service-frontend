@@ -9,8 +9,19 @@ import {
 	Check,
 } from "lucide-react";
 import { Button } from "./Button";
-import { Language, TranslationResult } from "@/types";
-// import { translateText } from "../services/geminiService";
+
+enum Language {
+	ENGLISH = "en",
+	FRENCH = "fr",
+}
+
+interface TranslationResult {
+	original: string;
+	translation: string;
+	emoji: string;
+	funFact: string;
+	pronunciation: string;
+}
 
 export const TranslatorCard: React.FC = () => {
 	const [input, setInput] = useState("");
@@ -23,34 +34,35 @@ export const TranslatorCard: React.FC = () => {
 		if (!input.trim()) return;
 		setLoading(true);
 		setResult(null);
-		try {
-			const targetLang =
-				sourceLang === Language.ENGLISH ? Language.FRENCH : Language.ENGLISH;
-			const data = {
-				original: input,
-				translation: sourceLang === Language.ENGLISH ? "Bonjour" : "Hello",
-				emoji: sourceLang === Language.ENGLISH ? "👋" : "👋",
-				funFact:
-					sourceLang === Language.ENGLISH
-						? "French is spoken in 29 countries!"
-						: "English is the most widely spoken language worldwide!",
-				pronunciation: sourceLang === Language.ENGLISH ? "bohn-zhoor" : "hello",
-			};
-			// const data = await translateText(input, sourceLang, targetLang);
-			setResult(data);
-		} catch (e) {
-			console.error(e);
-			// Fallback for demo if API fails
-			setResult({
-				original: input,
-				translation: "Oops!",
-				emoji: "🔧",
-				funFact: "Even computers need a nap sometimes! Try again later.",
-				pronunciation: "oops",
-			});
-		} finally {
+
+		const targetLang =
+			sourceLang === Language.ENGLISH ? Language.FRENCH : Language.ENGLISH;
+
+		// ✅ LOGIC FOR CONSOLE LOGGING INSTEAD OF API CALL
+		console.log("--- Translation Request ---");
+		console.log(`Source Language: ${sourceLang}`);
+		console.log(`Target Language: ${targetLang}`);
+		console.log(`Input Text: "${input}"`);
+		console.log("---------------------------");
+
+		// --- Simulate API Response (Local Data) ---
+		const simulatedResponse: TranslationResult = {
+			original: input,
+			translation: sourceLang === Language.ENGLISH ? "Bonjour" : "Hello",
+			emoji: sourceLang === Language.ENGLISH ? "👋" : "👋",
+			funFact:
+				sourceLang === Language.ENGLISH
+					? "French is spoken in 29 countries!"
+					: "English is the most widely spoken language worldwide!",
+			pronunciation: sourceLang === Language.ENGLISH ? "bohn-zhoor" : "hello",
+		};
+		// ------------------------------------------
+
+		// Simulate Network Latency
+		setTimeout(() => {
+			setResult(simulatedResponse);
 			setLoading(false);
-		}
+		}, 1000); // 1 second delay for demonstration
 	};
 
 	const toggleLanguage = () => {
@@ -62,10 +74,15 @@ export const TranslatorCard: React.FC = () => {
 	};
 
 	const playAudio = useCallback((text: string, lang: Language) => {
-		const utterance = new SpeechSynthesisUtterance(text);
-		utterance.lang = lang === Language.FRENCH ? "fr-FR" : "en-US";
-		utterance.rate = 0.9; // Slightly slower for kids
-		window.speechSynthesis.speak(utterance);
+		// Check if the SpeechSynthesis API is available
+		if ("speechSynthesis" in window) {
+			const utterance = new SpeechSynthesisUtterance(text);
+			utterance.lang = lang === Language.FRENCH ? "fr-FR" : "en-US";
+			utterance.rate = 0.9;
+			window.speechSynthesis.speak(utterance);
+		} else {
+			console.log("Speech synthesis not supported in this browser.");
+		}
 	}, []);
 
 	const copyToClipboard = (text: string) => {
@@ -76,18 +93,13 @@ export const TranslatorCard: React.FC = () => {
 
 	return (
 		<div className="bg-white rounded-[4rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)] border-8 border-kid-blue/10 w-full max-w-3xl mx-auto relative overflow-hidden ring-8 ring-kid-yellow/20">
-			{/* 💡 Increased padding, border, and added a yellow ring for attention */}
-
-			{/* Decorative Blob - Increased opacity and size */}
+			{/* Decorative Blobs... (styles kept as is) */}
 			<div className="absolute -top-20 -right-20 w-80 h-80 bg-kid-yellow/30 rounded-full blur-3xl pointer-events-none animate-wobble" />
 			<div className="absolute bottom-0 left-0 w-60 h-60 bg-kid-red/10 rounded-full blur-2xl pointer-events-none" />
 
 			<div className="relative z-10 flex flex-col gap-8">
-				{" "}
-				{/* 💡 Increased gap */}
-				{/* Language Toggle */}
+				{/* Language Toggle... (JSX kept as is) */}
 				<div className="flex items-center justify-between bg-kid-cream p-3 rounded-full border-4 border-orange-200 max-w-md mx-auto w-full shadow-inner">
-					{/* 💡 Added shadow-inner for depth */}
 					<div
 						className={`flex-1 text-center py-4 px-4 rounded-full font-bold transition-all duration-300 cursor-default ${
 							sourceLang === Language.ENGLISH
@@ -101,7 +113,7 @@ export const TranslatorCard: React.FC = () => {
 						onClick={toggleLanguage}
 						className="mx-2 p-4 bg-white rounded-full hover:bg-kid-cream text-kid-blue border-4 border-kid-yellow/30 transition-all hover:rotate-[360deg] shadow-lg"
 					>
-						<ArrowRightLeft size={24} /> {/* 💡 Larger icon */}
+						<ArrowRightLeft size={24} />
 					</button>
 					<div
 						className={`flex-1 text-center py-4 px-4 rounded-full font-bold transition-all duration-300 cursor-default ${
@@ -113,11 +125,14 @@ export const TranslatorCard: React.FC = () => {
 						🇫🇷 French
 					</div>
 				</div>
+
 				{/* Input Area */}
 				<div className="relative group">
 					<textarea
+						// ✅ Make it a controlled component
+						value={input}
+						onChange={(e) => setInput(e.target.value)}
 						// ... (rest of props)
-						// 💡 Better border, focused background, and clearer placeholder
 						placeholder={
 							sourceLang === Language.ENGLISH
 								? "Type a word here... (e.g., Cat, Hello)"
@@ -129,10 +144,11 @@ export const TranslatorCard: React.FC = () => {
 						✏️
 					</div>
 				</div>
+
 				{/* Action Button */}
 				<Button
 					onClick={handleTranslate}
-					disabled={loading || !input}
+					disabled={loading || !input.trim()} // Use input.trim() for disabling
 					size="lg"
 					className="w-full text-2xl py-6 shadow-2xl border-b-8 border-kid-blue/70 active:translate-y-[6px] active:shadow-none bg-kid-blue hover:bg-[#608DFF]"
 				>
@@ -146,10 +162,10 @@ export const TranslatorCard: React.FC = () => {
 						</>
 					)}
 				</Button>
-				{/* Result Card */}
+
+				{/* Result Card... (JSX kept as is) */}
 				{result && (
 					<div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-						{/* 💡 Used a celebratory gradient with a more defined border */}
 						<div className="mt-4 bg-gradient-to-br from-kid-yellow to-kid-red/20 rounded-[3rem] p-10 border-8 border-kid-yellow/50 relative shadow-[0_15px_30px_rgba(255,192,0,0.3)]">
 							<div className="flex flex-col gap-6">
 								{/* Main Translation */}
@@ -170,8 +186,6 @@ export const TranslatorCard: React.FC = () => {
 									</div>
 
 									<div className="flex items-center gap-4">
-										{" "}
-										{/* 💡 Increased gap */}
 										<button
 											onClick={() =>
 												playAudio(
@@ -181,7 +195,6 @@ export const TranslatorCard: React.FC = () => {
 														: Language.ENGLISH
 												)
 											}
-											// 💡 Clearer button styling for audio
 											className="p-5 bg-kid-blue rounded-full text-white shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all border-4 border-white/50"
 											title="Listen"
 										>
@@ -189,7 +202,6 @@ export const TranslatorCard: React.FC = () => {
 										</button>
 										<button
 											onClick={() => copyToClipboard(result.translation)}
-											// 💡 Clearer button styling for copy
 											className="p-5 bg-kid-green rounded-full text-white shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all border-4 border-white/50"
 											title="Copy"
 										>
@@ -202,12 +214,8 @@ export const TranslatorCard: React.FC = () => {
 
 								{/* Fun Fact */}
 								<div className="bg-white rounded-[2rem] p-6 border-4 border-kid-green/30 shadow-lg">
-									{" "}
-									{/* 💡 More depth */}
 									<div className="flex items-center gap-2 mb-2">
 										<span className="bg-kid-purple text-white text-sm font-black px-4 py-1.5 rounded-full tracking-wider uppercase shadow-md">
-											{" "}
-											{/* 💡 New color */}
 											FUN FACT
 										</span>
 										<Sparkles className="text-kid-purple w-5 h-5" />
