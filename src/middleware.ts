@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 function isAuthenticated(request: NextRequest) {
 	const sessionToken = request.cookies.get("access_token")?.value;
+	console.log("Session Token:", sessionToken);
 	return !!sessionToken;
 }
 
@@ -11,8 +12,7 @@ export function middleware(request: NextRequest) {
 
 	if (pathname === "/translate") {
 		if (!isAuthenticated(request)) {
-			const loginUrl = new URL("/login", request.url);
-			loginUrl.searchParams.set("from", pathname);
+			const loginUrl = new URL("/register", request.url);
 			return NextResponse.redirect(loginUrl);
 		}
 	}
