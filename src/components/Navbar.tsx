@@ -19,11 +19,11 @@ export const Navbar = () => {
 						</span>
 					</div>
 					<Button
-						onClick={() => router.push("/translate")}
+						onClick={() => router.push("/register")}
 						size="sm"
 						className="bg-kid-green hover:bg-emerald-400 text-white border-b-4 border-emerald-600 active:border-b-0 active:translate-y-1"
 					>
-						Start Learning
+						Login
 					</Button>
 				</div>
 			</div>
