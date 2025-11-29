@@ -1,33 +1,15 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight";
 
-:root {
-	--top-width: 85%;
-	--bottom-width: 80%;
+/* Your custom CSS */
+::-webkit-scrollbar {
+	width: 12px;
 }
-
-/* .page-content {
-	position: relative;
-	z-index: 10; /* content above background */
-
-.background-top {
-	position: absolute;
-	top: 0;
-	left: 0;
-	transform: translateX(-10%); /* CENTER, no white space */
-
-	width: 90vw;
-	height: 100vh;
-	z-index: -1; /* behind content */
-
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-
-	/* Trapezoid shape */
-	clip-path: polygon(
-		calc((100% - var(--top-width)) / 2) 0%,
-		calc(100% - (100% - var(--top-width)) / 2) 0%,
-		calc(100% - (100% - var(--bottom-width)) / 2) 100%,
-		calc((100% - var(--bottom-width)) / 2) 100%
-	);
+::-webkit-scrollbar-track {
+	background: #fffbeb;
+}
+::-webkit-scrollbar-thumb {
+	background: #fbbf24;
+	border-radius: 20px;
+	border: 3px solid #fffbeb;
 }
