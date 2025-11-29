@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-
-import { TranslationPage } from "../components/TranslationPage";
 import { Footer } from "../components/Footer";
 import { LandingPage } from "../components/LandingPage";
+import TranslationPage from "./pred/page";
 
 export type PageView = "landing" | "translator";
 

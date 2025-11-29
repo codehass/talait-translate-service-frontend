@@ -47,7 +47,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
 						<p className="text-2xl text-gray-600 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
 							The magical tool that helps you talk to new friends in French and
-							English. It's fast, fun, and easy!
+							English. It&apos;s fast, fun, and easy!
 						</p>
 
 						<div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
