@@ -1,0 +1,53 @@
+services:
+  frontend_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
+    environment:
+      BACKEND_URL: ${BACKEND_URL}
+    depends_on:
+      - backend_app
+    networks:
+      - fullstack-network
+
+  backend_app:
+    build:
+      context: ../talait-translate-service-API
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../talait-translate-service-API/.env
+    environment:
+      FRONTEND_URL: ${FRONTEND_URL}
+      DATABASE_HOST: database
+      DATABASE_URL: postgres://postgres:123456@database:5432/traduction_db
+    depends_on:
+      - database
+    networks:
+      - fullstack-network
+
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: traduction_db
+      DATABASE_HOST: database
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - fullstack-network
+
+networks:
+  fullstack-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
