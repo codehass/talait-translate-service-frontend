@@ -145,7 +145,7 @@ export default function AuthForms() {
 					</div>
 
 					<div
-						className={`bg-white p-8 rounded-[2rem] shadow-xl border-b-4 border-${primaryColor}/70 relative overflow-hidden`}
+						className={`bg-white p-8 rounded-4xl shadow-xl border-b-4 border-${primaryColor}/70 relative overflow-hidden`}
 					>
 						<div
 							className={`absolute -top-10 -right-10 w-32 h-32 bg-${secondaryColor}/30 rounded-full opacity-50 pointer-events-none`}
