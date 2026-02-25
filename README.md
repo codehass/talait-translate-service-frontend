@@ -24,9 +24,9 @@
 - [⭐️ Show your support](#support)
 - [📝 License](#license)
 
-# 📖 Project title <a name="about-project"></a>
+# 📖 KidLingo Translation Service - Frontend <a name="about-project"></a>
 
-This repository contains the frontend for the TalAIt translation platform, built with Next.js and React. The platform allows authenticated users to translate product information and customer service tickets between French and English in real-time using an external AI translation service (Hugging Face Inference API). The frontend includes user registration and login features with JWT authentication, a form to submit translation requests, and a real-time display of translated text. The app is fully dockerized for simple deployment.
+This repository contains the frontend for the KidLingo translation platform, built with Next.js and React. The platform allows authenticated users to translate product information and customer service tickets between French and English in real-time using an external AI translation service (Hugging Face Inference API). The frontend includes user registration and login features with JWT authentication, a form to submit translation requests, and a real-time display of translated text. The app is fully dockerized for simple deployment.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -34,9 +34,9 @@ This repository contains the frontend for the TalAIt translation platform, built
 
   <ul>
     <li><a href="https://nextjs.org/">Next.js</a></li>
+    <li><a href="https://react.dev/">React</a></li>
     <li><a href="https://www.tailwindcss.com/">Tailwind CSS</a></li>
-    <li><a href="https://styled-components.com/">Styled-components</a></li>
-    <li><a href="https://supabase.com/">Supabase</a></li>
+    <li><a href="https://www.docker.com/">Docker</a></li>
   </ul>
 
 ### Key Features <a name="key-features"></a>
@@ -49,7 +49,7 @@ This repository contains the frontend for the TalAIt translation platform, built
 
 - **Secure access to translation features via JWT**
 
-Fully dockerized for deployment
+- **Fully dockerized for deployment**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -68,7 +68,7 @@ To get a local copy up and running, follow these steps.
 Clone this repository to your desired folder:
 
 ```sh
-  git clone git@github.com:codehass/front-end-next-template.git
+  git clone git@github.com:codehass/KidLingo-translate-service-frontend.git
 ```
 
 ### Install
@@ -76,7 +76,7 @@ Clone this repository to your desired folder:
 Install this project with:
 
 ```sh
-  cd front-end-next-template
+  cd KidLingo-translate-service-frontend
   npm install
 ```
 
@@ -108,10 +108,10 @@ To run the project, execute the following command:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- **Feature one**
-- **Feature two**
-- **Feature three**
-- **Feature four**
+- **Support for additional translation languages**
+- **User dashboard to view translation history**
+- **Dark mode toggle**
+- **Accessibility improvements**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -119,13 +119,13 @@ To run the project, execute the following command:
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/codehass/the-wild-oasis/issues).
+Feel free to check the [issues page](../../issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## ⭐️ Show your support <a name="support"></a>
 
-Join us in supporting our project to improve cabin management in hotels! Your help makes a big difference in making stays smoother and guests happier. Let's work together to bring positive change to the hospitality industry!
+Join us in supporting our project to improve cross-lingual communication with AI translations! Your help makes a big difference in bridging language gaps effortlessly. Let's work together to bring positive change to language accessibility!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
